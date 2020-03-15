@@ -13,7 +13,18 @@ import { Observable } from 'rxjs';
 })
 export class ProjectsComponent implements OnInit {
   // projects$: Observable<Project[]> = this.projectsFacade.allProjects$
-
+  projects: Project[] = [{
+    id: '1',
+    title: 'title1',
+    details: 'details1',
+    importanceLevel: 100
+  },
+    {
+      id: '2',
+      title: 'title2',
+      details: 'details2',
+      importanceLevel: 200
+    }]
   project: Project;
   formGroup: FormGroup;
 

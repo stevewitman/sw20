@@ -1,2 +1,2 @@
-export interface Project.Model {
+export interface Project {
 }

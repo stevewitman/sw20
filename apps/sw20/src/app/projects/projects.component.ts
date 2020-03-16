@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { Project, ProjectsService } from '@bb/core-data';
-// import { ProjectsFacade } from '@bb/core-state';
+import { ProjectsFacade } from '@bb/core-state';
 
 import { Observable } from 'rxjs';
 
@@ -12,33 +12,21 @@ import { Observable } from 'rxjs';
   styleUrls: ['./projects.component.scss']
 })
 export class ProjectsComponent implements OnInit {
-  // projects$: Observable<Project[]> = this.projectsFacade.allProjects$
-  projects: Project[] = [{
-    id: '1',
-    title: 'title1',
-    details: 'details1',
-    importanceLevel: 100
-  },
-    {
-      id: '2',
-      title: 'title2',
-      details: 'details2',
-      importanceLevel: 200
-    }]
+  projects$: Observable<Project[]> = this.projectsFacade.allProjects$;
   project: Project;
   formGroup: FormGroup;
 
   constructor(
     private projectsService: ProjectsService,
-    private formBuilder: FormBuilder
-    // private projectsFacade: ProjectsFacade
+    private formBuilder: FormBuilder,
+    private projectsFacade: ProjectsFacade
   ) {
   }
 
   ngOnInit(): void {
     this.initForm();
-    // this.projectsFacade.loadProjects();
-    // this.projectsFacade.nutations$.subscribe(() => this.reset())
+    this.projectsFacade.loadProjects();
+    this.projectsFacade.mutations$.subscribe(() => this.reset())
   }
 
   reset() {
@@ -50,24 +38,25 @@ export class ProjectsComponent implements OnInit {
   }
 
   select(project: Project) {
-    // this.projectsFacade.selectProject(project.id);
+    this.projectsFacade.selectProject(project.id);
     this.formGroup.patchValue(project);
   }
 
   create() {
-    // this.projectsFacade.createProject(this.formGroup.value);
+    this.projectsFacade.createProject(this.formGroup.value);
   }
 
   update() {
-    // this.projectsFacade.updateProject(this.formGroup.value);
+    this.projectsFacade.updateProject(this.formGroup.value);
   }
 
   delete(project: Project) {
-    // this.projectsFacade.deleteProject(project);
+    this.projectsFacade.deleteProject(project);
   }
 
   save(project: Project) {
     if (project.id) {
+      console.log('PROJECTS.TS UPDATE')
       this.update();
     } else {
       this.create();

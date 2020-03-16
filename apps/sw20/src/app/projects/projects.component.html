@@ -2,7 +2,7 @@
   <div class="row">
     <div class="col-6">
       <bb-projects-list
-        [projects]="projects"
+        [projects]="projects$ | async"
         (selected)="select($event)"
         (deleted)="delete($event)"
       ></bb-projects-list>

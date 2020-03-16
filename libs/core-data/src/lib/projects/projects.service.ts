@@ -18,7 +18,7 @@ export class ProjectsService {
     return this.http.get<Project[]>(this.getUrl());
   }
 
-  finOne(id: string): Observable<Project> {
+  findOne(id: string): Observable<Project> {
     return this.http.get<Project>(this.getUrlWithId(id));
   }
 
@@ -27,6 +27,7 @@ export class ProjectsService {
   }
 
   update(project: Project): Observable<Project> {
+    console.log("PROJECTS SERVICE / UPDATE")
     return this.http.patch<Project>(this.getUrlWithId(project.id), project);
   }
 
